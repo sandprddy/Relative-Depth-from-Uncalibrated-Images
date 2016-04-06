@@ -4,9 +4,7 @@
 
  Used RANSAC algorithm to calculate fundamental matrix.
 
- Calculated Fundamental matrix is used in Richard Hartley's rectification algorithm to
-
-rectify the images.
+ Calculated Fundamental matrix is used in Richard Hartley's rectification algorithm to rectify the images.
 
  Richard Hartley's rectification results in shearing of images. This images are rectified using another matrix S (a solution by Loop and Zhang1 effect on image.
 
