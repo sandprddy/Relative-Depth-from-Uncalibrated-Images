@@ -20,6 +20,7 @@ using namespace std;
 
 void readme();
 
+//-- normalising the points
 Mat normalise2Dpts(vector<Point2f> & pts, vector<Point2f> & newpts)
 {
  Scalar centroids=mean(pts);
@@ -48,6 +49,7 @@ Mat normalise2Dpts(vector<Point2f> & pts, vector<Point2f> & newpts)
     return T;
 }
 
+//-- main function
 int main( int argc, char** argv )
 {
  
@@ -134,37 +136,6 @@ int main( int argc, char** argv )
   Mat F=findFundamentalMat(obj, scene,FM_RANSAC,3,0.99);
   cout<<"determinant:"<<determinant(F);
 
- /* // draw the left points corresponding epipolar lines in right image
-    std::vector<cv::Vec3f> linesLeft;
-    cv::computeCorrespondEpilines(
-            cv::Mat(selPointsLeft), // image points
-            1,                      // in image 1 (can also be 2)
-            F,            // F matrix
-            linesLeft);             // vector of epipolar lines
-
-    // for all epipolar lines
-    for (vector<cv::Vec3f>::const_iterator it= linesLeft.begin(); it!=linesLeft.end(); ++it) {
-
-        // draw the epipolar line between first and last column
-        cv::line(img_object,cv::Point(0,-(*it)[2]/(*it)[1]),cv::Point(img_object.cols,-((*it)[2]+(*it)[0]*img_object.cols)/(*it)[1]),cv::Scalar(255,255,255));
-    }
-
-    // draw the left points corresponding epipolar lines in left image
-    std::vector<cv::Vec3f> linesRight;
-    cv::computeCorrespondEpilines(cv::Mat(selPointsRight),2,F,linesRight);
-    for (vector<cv::Vec3f>::const_iterator it= linesRight.begin(); it!=linesRight.end(); ++it) {
-
-        // draw the epipolar line between first and last column
-        cv::line(img_scene,cv::Point(0,-(*it)[2]/(*it)[1]), cv::Point(img_scene.cols,-((*it)[2]+(*it)[0]*img_scene.cols)/(*it)[1]), cv::Scalar(255,255,255));
-    }
-
-    // Display the images with points and epipolar lines
-    cv::namedWindow("Right Image Epilines");
-    cv::imshow("Right Image Epilines",img_object);
-    cv::namedWindow("Left Image Epilines");
-    cv::imshow("Left Image Epilines",img_scene);*/
-    
-  
   //rectification of images
   Mat H1;
   Mat H2;
@@ -215,12 +186,12 @@ int main( int argc, char** argv )
 // Point3ff y2=outPts2[2]-outPts2[0];
  Point3ff x1=outPts1[1]-outPts1[3];
  Point3ff y1=outPts1[2]-outPts1[0];
- //(h²x[1]² + w²y[1]²)/(hw(x[1]y[0] - x[0]y[1]))
+ //(hÂ²x[1]Â² + wÂ²y[1]Â²)/(hw(x[1]y[0] - x[0]y[1]))
  double n1= h1*h1 *x1.y*x1.y; double n2= w1*w1 *y1.y*y1.y;
  double n3= h1*w1*x1.y*y1.x; double n4= h1*w1*x1.x*y1.y;
  double k1= (n1+n2)/(n3-n4);
  k1= abs(k1);
- //(h²x[0]x[1] + w²y[0]y[1])/(hw(x[0]y[1] - x[1]y[0]))
+ //(hÂ²x[0]x[1] + wÂ²y[0]y[1])/(hw(x[0]y[1] - x[1]y[0]))
  n1= h1*h1*x1.x*x1.y; n2= w1*w1*y1.x*y1.y;
  n3= h1*w1*x1.x*y1.y; n4= h1*w1*x1.y*y1.x;
  double k2= (n1+n2)/(n3-n4);
