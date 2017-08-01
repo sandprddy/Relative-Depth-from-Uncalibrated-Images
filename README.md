@@ -8,4 +8,4 @@ Calculated Fundamental matrix is used in Richard Hartley's rectification algorit
 
 Richard Hartley's rectification results in shearing of images. This images are rectified using another matrix S (a solution by Loop and Zhang1 effect on image.
 
-Modified H. Hirschmuller algorithm implementation in Opencv(stereoSGBM) is used to calculate disparity map.
+Modified H. Hirschmuller algorithm implementation in Opencv(stereoSGBM) is used to calculate disparity map...
